@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "local-media-transcriber"
+version = "0.1.0"
+description = "Local-first modular audio/video transcription with FunASR"
+readme = "README_EN.md"
+requires-python = ">=3.11,<3.13"
+license = "MIT"
+authors = [{name = "RoyYu"}]
+dependencies = ["platformdirs>=4.3,<5", "jsonschema>=4.23,<5"]
+
+[project.optional-dependencies]
+asr = ["funasr==1.4.26", "torch==2.8.0", "torchaudio==2.8.0", "modelscope==1.40.3", "huggingface-hub>=0.34,<1", "soundfile>=0.13,<1", "numpy>=1.26,<3", "scikit-learn>=1.6,<2", "sentencepiece>=0.2,<1"]
+docx = ["python-docx>=1.1,<2"]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1", "build>=1.2,<2"]
+
+[project.scripts]
+transcribe = "local_media_transcriber.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/local_media_transcriber"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.uv]
+# The audio-only adapter rejects Kaldi archives; do not install evaluation-only kaldiio.
+exclude-dependencies = ["kaldiio"]

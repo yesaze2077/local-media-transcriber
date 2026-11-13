@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yesaze2077/local-media-transcriber/transcript.schema.json",
+  "title": "Local Media Transcriber transcript",
+  "type": "object",
+  "required": [
+    "metadata",
+    "speakers",
+    "segments"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "source_file",
+        "duration_ms",
+        "language",
+        "model"
+      ],
+      "properties": {
+        "source_file": {
+          "type": "string"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": "string"
+        }
+      }
+    },
+    "speakers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": [
+              "string",
+              "integer"
+            ]
+          },
+          "display_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/segment"
+      }
+    },
+    "processed_transcript": {
+      "type": "object",
+      "required": [
+        "segments"
+      ],
+      "properties": {
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/segment"
+          }
+        }
+      }
+    },
+    "raw_transcript": {
+      "type": "object",
+      "required": [
+        "segments"
+      ],
+      "properties": {
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/segment"
+          }
+        },
+        "model_results": {
+          "type": "array"
+        }
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "learning_sentences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sentence_id",
+          "segment_id",
+          "text",
+          "start_ms",
+          "end_ms",
+          "timing_precision",
+          "human_verified"
+        ],
+        "properties": {
+          "sentence_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "segment_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "text": {
+            "type": "string"
+          },
+          "start_ms": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "end_ms": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "timing_precision": {
+            "type": "string"
+          },
+          "human_verified": {
+            "type": "boolean"
+          },
+          "translation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "translation_language": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "segment": {
+      "type": "object",
+      "required": [
+        "id",
+        "start_ms",
+        "end_ms",
+        "speaker_id",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "start_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "end_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "speaker_id": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "translation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "translation_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

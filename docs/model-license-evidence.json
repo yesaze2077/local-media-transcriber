@@ -1,0 +1,77 @@
+{
+  "checked_date": "2026-11-13",
+  "evidence": [
+    {
+      "component": "paraformer-zh",
+      "publisher_repository": "funasr/paraformer-zh",
+      "revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "source_url": "https://huggingface.co/funasr/paraformer-zh/raw/d7811ee3ac581fbcfdeb37c98c6ba674028433dc/README.md",
+      "source_sha256": "513555aa084cc8a00e7bf1c916e659dfa9f70166ce6aaf6fe281c537bd6f1053",
+      "license_declaration": "apache-2.0",
+      "evidence_scope": "model-card declaration; no standalone LICENSE in repository inventory"
+    },
+    {
+      "component": "fsmn-vad",
+      "publisher_repository": "funasr/fsmn-vad",
+      "revision": "df20e6b30c653645fa4ff125cacfcabd1020a669",
+      "source_url": "https://huggingface.co/funasr/fsmn-vad/raw/df20e6b30c653645fa4ff125cacfcabd1020a669/README.md",
+      "source_sha256": "bc7ed04222f932ea519e5969140a7fa14944becbbb3c0728a267c5bf9dc9c200",
+      "license_declaration": "apache-2.0",
+      "evidence_scope": "model-card declaration; no standalone LICENSE in repository inventory"
+    },
+    {
+      "component": "ct-punc",
+      "publisher_repository": "funasr/ct-punc",
+      "revision": "d0e55e2b8722a78b63705ff443d09c4f86e5d750",
+      "source_url": "https://huggingface.co/funasr/ct-punc/raw/d0e55e2b8722a78b63705ff443d09c4f86e5d750/README.md",
+      "source_sha256": "caa13cf2d2b7ea4246d6da5390925d6adcb03de2805017c42d86fe53264c1d15",
+      "license_declaration": "apache-2.0",
+      "evidence_scope": "model-card declaration; no standalone LICENSE in repository inventory"
+    },
+    {
+      "component": "cam++",
+      "publisher_repository": "funasr/campplus",
+      "revision": "e4b6ede7ce16997aff4ae69fbca1f0175e2afede",
+      "source_url": "https://huggingface.co/funasr/campplus/raw/e4b6ede7ce16997aff4ae69fbca1f0175e2afede/README.md",
+      "source_sha256": "c6025ccc42e290640f44e06f0742c584b99afe738bb819d74889330c692446f9",
+      "license_declaration": "apache-2.0",
+      "evidence_scope": "model-card declaration; no standalone LICENSE in repository inventory"
+    },
+    {
+      "component": "sensevoice-small",
+      "publisher_repository": "FunAudioLLM/SenseVoiceSmall",
+      "revision": "3847d57b6bdf2dd8875cb1508d2af43d80a16bf7",
+      "source_url": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall/raw/3847d57b6bdf2dd8875cb1508d2af43d80a16bf7/README.md",
+      "source_sha256": "6add90487ea3d685b6604ad0932b565fc5cf7e9daaf8aebc674de49da4560958",
+      "license_declaration": "other",
+      "evidence_scope": "model-card declaration; no standalone LICENSE in repository inventory"
+    },
+    {
+      "component": "FunASR LICENSE",
+      "revision": "6f52414c5730a1c368b4d164853582ee9689249a",
+      "source_url": "https://raw.githubusercontent.com/modelscope/FunASR/6f52414c5730a1c368b4d164853582ee9689249a/LICENSE",
+      "source_sha256": "f382b62dcc61fc566b9215b1e3b604b539bfd96ed52ae1eeff5090f6dc176057",
+      "first_line": "MIT License"
+    },
+    {
+      "component": "FunASR MODEL_LICENSE",
+      "revision": "6f52414c5730a1c368b4d164853582ee9689249a",
+      "source_url": "https://raw.githubusercontent.com/modelscope/FunASR/6f52414c5730a1c368b4d164853582ee9689249a/MODEL_LICENSE",
+      "source_sha256": "7dba975a2069691db4992b0592d70828b330d2f8a30a71450f4e152a554e84f8",
+      "first_line": "FunASR Model Open Source License Agreement"
+    },
+    {
+      "component": "FunASR 1.4.26 PyPI wheel",
+      "source_url": "https://files.pythonhosted.org/packages/ed/af/a4587c09ba2a2816c74b4f9a91eeac96ea507474a9cf5ef8a5a40fd62b30/funasr-1.4.26-py3-none-any.whl",
+      "source_sha256": "104e3704fed0ecfd6c08836468de147a2c6f05745281093b8a6dbe341d1ce831",
+      "package_license_metadata": "The MIT License",
+      "wheel_license_files": [
+        "funasr-1.4.26.dist-info/licenses/LICENSE"
+      ],
+      "license_first_lines": {
+        "funasr-1.4.26.dist-info/licenses/LICENSE": "MIT License"
+      }
+    }
+  ],
+  "limitation": "Publisher declarations are recorded, not a legal opinion or a grant of new rights."
+}

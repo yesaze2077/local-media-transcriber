@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-13",
+  "fresh_venv_install": "passed",
+  "frozen_sync": "passed",
+  "fresh_venv_cpu_inference": "passed",
+  "elapsed_seconds": 93.4,
+  "skill_discovery": {
+    "enabled": true,
+    "scope": "user"
+  },
+  "private_paths_omitted": true
+}

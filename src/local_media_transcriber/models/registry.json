@@ -1,0 +1,128 @@
+[
+  {
+    "name": "paraformer-zh",
+    "model_id": "funasr/paraformer-zh",
+    "purpose": "asr",
+    "languages": [
+      "zh"
+    ],
+    "devices": [
+      "cpu"
+    ],
+    "sample_rate": 16000,
+    "download_url": "https://huggingface.co/funasr/paraformer-zh",
+    "version": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+    "license": "Apache-2.0 (model-card declaration)",
+    "license_url": "https://huggingface.co/funasr/paraformer-zh/blob/d7811ee3ac581fbcfdeb37c98c6ba674028433dc/README.md",
+    "weight_files": [
+      {
+        "filename": "model.pt",
+        "size": 880502012,
+        "sha256": "5bba782a5e9196166233b9ab12ba04cadff9ef9212b4ff6153ed9290ff679025",
+        "mirror_url": "https://modelscope.cn/models/iic/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-pytorch/resolve/master/model.pt"
+      }
+    ]
+  },
+  {
+    "name": "sensevoice-small",
+    "model_id": "FunAudioLLM/SenseVoiceSmall",
+    "purpose": "asr",
+    "languages": [
+      "zh",
+      "en",
+      "yue",
+      "ja",
+      "ko"
+    ],
+    "devices": [
+      "cpu"
+    ],
+    "sample_rate": 16000,
+    "download_url": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall",
+    "version": "3847d57b6bdf2dd8875cb1508d2af43d80a16bf7",
+    "license": "FunASR Model License 1.1 (custom; see notices)",
+    "license_url": "https://github.com/modelscope/FunASR/blob/main/MODEL_LICENSE",
+    "weight_files": [
+      {
+        "filename": "model.pt",
+        "size": 936291369,
+        "sha256": "833ca2dcfdf8ec91bd4f31cfac36d6124e0c459074d5e909aec9cabe6204a3ea",
+        "mirror_url": "https://modelscope.cn/models/iic/SenseVoiceSmall/resolve/master/model.pt"
+      }
+    ]
+  },
+  {
+    "name": "fsmn-vad",
+    "model_id": "funasr/fsmn-vad",
+    "purpose": "vad",
+    "languages": [
+      "zh",
+      "en"
+    ],
+    "devices": [
+      "cpu"
+    ],
+    "sample_rate": 16000,
+    "download_url": "https://huggingface.co/funasr/fsmn-vad",
+    "version": "df20e6b30c653645fa4ff125cacfcabd1020a669",
+    "license": "Apache-2.0 (model-card declaration)",
+    "license_url": "https://huggingface.co/funasr/fsmn-vad/blob/df20e6b30c653645fa4ff125cacfcabd1020a669/README.md",
+    "weight_files": [
+      {
+        "filename": "model.pt",
+        "size": 1721366,
+        "sha256": "b3be75be477f0780277f3bae0fe489f48718f585f3a6e45d7dd1fbb1a4255fc5",
+        "mirror_url": "https://modelscope.cn/models/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch/resolve/master/model.pt"
+      }
+    ]
+  },
+  {
+    "name": "ct-punc",
+    "model_id": "funasr/ct-punc",
+    "purpose": "punctuation",
+    "languages": [
+      "zh",
+      "en"
+    ],
+    "devices": [
+      "cpu"
+    ],
+    "sample_rate": null,
+    "download_url": "https://huggingface.co/funasr/ct-punc",
+    "version": "d0e55e2b8722a78b63705ff443d09c4f86e5d750",
+    "license": "Apache-2.0 (model-card declaration)",
+    "license_url": "https://huggingface.co/funasr/ct-punc/blob/d0e55e2b8722a78b63705ff443d09c4f86e5d750/README.md",
+    "weight_files": [
+      {
+        "filename": "model.pt",
+        "size": 1125507622,
+        "sha256": "7176cae922a872e130e6b88aef9a1153581711baf79c9124c7c95be383cd6f81",
+        "mirror_url": "https://modelscope.cn/models/iic/punc_ct-transformer_cn-en-common-vocab471067-large/resolve/master/model.pt"
+      }
+    ]
+  },
+  {
+    "name": "cam++",
+    "model_id": "funasr/campplus",
+    "purpose": "speaker_embedding",
+    "languages": [
+      "language-independent"
+    ],
+    "devices": [
+      "cpu"
+    ],
+    "sample_rate": 16000,
+    "download_url": "https://huggingface.co/funasr/campplus",
+    "version": "e4b6ede7ce16997aff4ae69fbca1f0175e2afede",
+    "license": "Apache-2.0 (model-card declaration)",
+    "license_url": "https://huggingface.co/funasr/campplus/blob/e4b6ede7ce16997aff4ae69fbca1f0175e2afede/README.md",
+    "weight_files": [
+      {
+        "filename": "campplus_cn_common.bin",
+        "size": 28036335,
+        "sha256": "3388cf5fd3493c9ac9c69851d8e7a8badcfb4f3dc631020c4961371646d5ada8",
+        "mirror_url": "https://modelscope.cn/models/iic/speech_campplus_sv_zh-cn_16k-common/resolve/master/campplus_cn_common.bin"
+      }
+    ]
+  }
+]
