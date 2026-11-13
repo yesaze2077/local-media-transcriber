@@ -31,3 +31,9 @@ Full runtime installation uses the repository's frozen uv workflow. `[tool.uv] e
 ## Model download identity
 
 The default downloader obtains large weights in resumable ranges from the publishers' official ModelScope mirrors and validates the complete file against the fixed Hugging Face revision's LFS SHA256 recorded in the registry. Configuration/vocabulary files come from the pinned Hugging Face snapshot. Each resumed range is also checked before reuse; a complete weight mismatch refuses activation. `LMT_WEIGHT_SOURCE=hf` selects direct Hugging Face weight transport. Model identity, licenses and offline inference behavior remain independent of which download host transports the bytes.
+
+## Automatic count in v0.1.1
+
+Short-window CAM++ embeddings are normalized and connected by positive squared cosine affinities in a k-nearest-neighbour graph. A normalized-Laplacian relative eigengap chooses up to 50 candidate groups; spectral embedding assigns the partition. A finer three-neighbour view checks for compact, novel minority groups with at least three windows and three seconds of overlapping/touching temporal support on one channel. This retains a short third voice that the broader graph can smooth away, without promoting every phonetic submode. The thresholds are heuristic and not calibrated confidence probabilities.
+
+The numerical solver uses a small dense decomposition only up to 128 windows and sparse partial eigenvectors above that, retaining the 5000-window limit. Explicit `--speakers` continues the prior constrained average-linkage path. Nonfinite/zero embeddings remain unassigned; old labels are cleared before assignment. Counts, method and `speaker_count_is_verified=false` are exported in metadata. Version 0.1.1 participates in task fingerprints, so old four-cluster results are not silently reused as new results.

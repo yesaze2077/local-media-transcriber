@@ -424,6 +424,15 @@ def transcribe(source: Path, config: dict, job_dir: Path) -> dict:
             "diarization_method": "campp_1.5s_windows_0.75s_hop_global_clustering"
             if config.get("diarization")
             else None,
+            "speaker_count_method": (
+                "explicit_constraint"
+                if config.get("speakers") is not None
+                else "cosine_knn_multiscale_eigengap_v1"
+            )
+            if config.get("diarization")
+            else None,
+            "estimated_speaker_count": len(speakers) if config.get("diarization") else None,
+            "speaker_count_is_verified": False,
             "mode": config.get("mode", "transcription"),
             "channel_policy": channel_policy,
             "channel_analysis": analysis,

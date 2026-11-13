@@ -2,7 +2,7 @@
 
 Local-first audio/video transcription with modular FunASR models, timestamped text, optional anonymous speaker clustering, subtitles and resumable batch jobs. CPU is the default. Media and transcripts are not uploaded; no paid cloud API is required.
 
-[中文](README.md) · [Verification report](docs/tests-report.md) · [Third-party licenses](THIRD_PARTY_NOTICES.md) · [Privacy](docs/privacy.md)
+[中文](README.md) · [Verification report](docs/tests-report-v0.1.1.md) · [Third-party licenses](THIRD_PARTY_NOTICES.md) · [Privacy](docs/privacy.md)
 
 Project code and the Codex Skill are MIT. Model weights have separate licenses, including the custom agreement for SenseVoiceSmall; the MIT license does not cover every checkpoint.
 
@@ -155,7 +155,7 @@ flowchart LR
     Schema --> Export[Text / subtitles / structured exports]
 ```
 
-[Architecture](docs/architecture.md) · [Verification report](docs/tests-report.md) · [Licenses](THIRD_PARTY_NOTICES.md)
+[Architecture](docs/architecture.md) · [Verification report](docs/tests-report-v0.1.1.md) · [Licenses](THIRD_PARTY_NOTICES.md)
 
 ```bash
 make test
@@ -164,7 +164,7 @@ make build
 make smoke
 ```
 
-The report separates real inference, software tests, implementation-only paths, unsupported features and known risks. Synthetic speech demonstrates execution, not accuracy on real interviews or independent human speakers. Overlap, noise, distance, dialects and cross-chunk clustering require review. CAM++ uses 1.5-second windows with a 0.75-second hop, global clustering and temporal sentence assignment. Conflicting sentence labels are marked `speaker_uncertain`; short turns and overlap remain uncertain. Automatic counts use a heuristic threshold. A job supports up to 5000 speaker windows; split larger jobs or disable diarization. Tests do not establish a general accuracy benchmark.
+The report separates real inference, software tests, implementation-only paths, unsupported features and known risks. Synthetic speech demonstrates execution, not accuracy on real interviews or independent human speakers. Overlap, noise, distance, dialects and cross-chunk clustering require review. CAM++ uses 1.5-second windows with a 0.75-second hop, global clustering and temporal sentence assignment. Conflicting sentence labels are marked `speaker_uncertain`; short turns and overlap remain uncertain. Automatic counts use multiscale cosine-neighbour graphs, relative eigengaps and a coherent short-voice check. Counts remain unverified estimates. A job supports up to 5000 speaker windows; split larger jobs or disable diarization. Tests do not establish a general accuracy benchmark.
 
 ## FAQ and privacy
 
@@ -180,4 +180,4 @@ The report separates real inference, software tests, implementation-only paths, 
 
 Future extensions may add new checkpoint adapters, dedicated overlap processing, review UI, independent local translation/understanding and broader platform tests. These are not claimed as current validated capabilities.
 
-Validation: 75 software tests and 19 integration execution scenarios passed. Automatic count estimation produced 4 clusters for a two-voice synthetic sample; it is experimental. Specify a known speaker count and review labels. See the [test report](docs/tests-report.md).
+v0.1.1 validation: the original two-voice sample now yields 2 clusters instead of 4, and the three-voice sample yields 3 instead of 9. Seven required synthetic-voice scenarios, including changed text/rates and a 3-second third voice, pass count and balanced label checks. A 1.5-second third voice can still be missed. See the [test report](docs/tests-report-v0.1.1.md).

@@ -151,6 +151,8 @@ def main():
             config("--mode", "diarization", "--speakers", "2", "--channel", "mix"),
         ),
         ("auto_speakers", "two.wav", config("--mode", "diarization", "--channel", "mix")),
+        ("auto_single", "zh.wav", config("--mode", "diarization", "--channel", "mix")),
+        ("auto_three", "three.wav", config("--mode", "diarization", "--channel", "mix")),
         ("silence", "silence.wav", config("--mode", "subtitle", "--channel", "mix")),
         ("noise", "noise.wav", config("--channel", "mix")),
         ("separate_channels", "stereo.wav", config("--channel", "split")),
@@ -173,6 +175,7 @@ def main():
     reports = []
 
     def run(name, filename, options):
+        report = {"case": name, "status": "failed"}
         try:
             result = run_task(root / filename, options, root / "results")
             from local_media_transcriber.core.paths import state_dir
@@ -192,6 +195,15 @@ def main():
                 "duplicate": result["duplicate"],
                 "timing_precision": sorted({s["timing_precision"] for s in data["segments"]}),
             }
+            expected_auto = {"auto_speakers": 2, "auto_single": 1, "auto_three": 3}
+            if name in expected_auto:
+                report.update(
+                    expected_count=expected_auto[name],
+                    observed_count=len(data["speakers"]),
+                    count_match=len(data["speakers"]) == expected_auto[name],
+                )
+                if not report["count_match"]:
+                    raise AssertionError("Automatic speaker count differed from reference voices")
             if name not in {"silence", "noise"} and not data["segments"]:
                 raise AssertionError("Expected speech produced no segments")
             if name == "silence" and data["segments"]:
@@ -235,7 +247,7 @@ def main():
                 if report["synthetic_voice_label_agreement"] < 0.8:
                     raise AssertionError("Synthetic voice labels were inconsistent")
         except Exception as error:
-            report = {"case": name, "status": "failed", "error_code": type(error).__name__}
+            report.update(status="failed", error_code=type(error).__name__)
         reports.append(report)
         print(json.dumps(report, ensure_ascii=False), flush=True)
         (root / "validation-report.json").write_text(

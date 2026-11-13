@@ -554,7 +554,7 @@ wheels = [
 
 [[package]]
 name = "local-media-transcriber"
-version = "0.1.0"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "jsonschema" },
@@ -576,8 +576,11 @@ asr = [
 ]
 dev = [
     { name = "build" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "scikit-learn" },
 ]
 docx = [
     { name = "python-docx" },
@@ -591,11 +594,13 @@ requires-dist = [
     { name = "jsonschema", specifier = ">=4.23,<5" },
     { name = "modelscope", marker = "extra == 'asr'", specifier = "==1.40.3" },
     { name = "numpy", marker = "extra == 'asr'", specifier = ">=1.26,<3" },
+    { name = "numpy", marker = "extra == 'dev'", specifier = ">=1.26,<3" },
     { name = "platformdirs", specifier = ">=4.3,<5" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8,<10" },
     { name = "python-docx", marker = "extra == 'docx'", specifier = ">=1.1,<2" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.9,<1" },
     { name = "scikit-learn", marker = "extra == 'asr'", specifier = ">=1.6,<2" },
+    { name = "scikit-learn", marker = "extra == 'dev'", specifier = ">=1.6,<2" },
     { name = "sentencepiece", marker = "extra == 'asr'", specifier = ">=0.2,<1" },
     { name = "soundfile", marker = "extra == 'asr'", specifier = ">=0.13,<1" },
     { name = "torch", marker = "extra == 'asr'", specifier = "==2.8.0" },

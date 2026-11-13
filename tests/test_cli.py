@@ -2,6 +2,8 @@ import json
 
 import pytest
 
+from local_media_transcriber import __version__
+
 from local_media_transcriber.cli import _configuration, main, parser
 
 
@@ -57,7 +59,7 @@ def test_version_and_sanitized_error(capsys):
     with pytest.raises(SystemExit) as result:
         main(["--version"])
     assert result.value.code == 0
-    assert "Local Media Transcriber 0.1.0" in capsys.readouterr().out
+    assert f"Local Media Transcriber {__version__}" in capsys.readouterr().out
     assert main(["run", "/private-does-not-exist-secret-name.wav"]) == 1
     error = capsys.readouterr().err
     assert "secret-name" not in error and "FileNotFoundError" in error

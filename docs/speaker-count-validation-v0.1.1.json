@@ -1,0 +1,286 @@
+{
+  "version": "0.1.1",
+  "date": "2026-11-13",
+  "data": "locally synthesized original text; no human-recording accuracy claim",
+  "scope": "synthetic-voice count and balanced sentence-label checks; not a human-recording DER/accuracy benchmark",
+  "status": "passed_with_diagnostic_failures",
+  "required_failures": [],
+  "diagnostic_failures": [
+    "diagnostic_tiny_third_1_5s"
+  ],
+  "cases": [
+    {
+      "case": "original_single",
+      "required": true,
+      "status": "passed",
+      "expected_count": 1,
+      "observed_count": 1,
+      "legacy_count": 1,
+      "window_count": 14,
+      "count_match": true,
+      "per_voice_agreement": {
+        "A": 1.0
+      },
+      "reference_sentence_counts": {
+        "A": 3
+      },
+      "macro_agreement": 1.0,
+      "min_agreement": 1.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [],
+      "duration_ms": 10652,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually."
+      ]
+    },
+    {
+      "case": "original_two",
+      "required": true,
+      "status": "passed",
+      "expected_count": 2,
+      "observed_count": 2,
+      "legacy_count": 4,
+      "window_count": 52,
+      "count_match": true,
+      "per_voice_agreement": {
+        "A": 1.0,
+        "B": 1.0
+      },
+      "reference_sentence_counts": {
+        "A": 6,
+        "B": 10
+      },
+      "macro_agreement": 1.0,
+      "min_agreement": 1.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [],
+      "duration_ms": 41024,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually."
+      ]
+    },
+    {
+      "case": "original_three",
+      "required": true,
+      "status": "passed",
+      "expected_count": 3,
+      "observed_count": 3,
+      "legacy_count": 9,
+      "window_count": 73,
+      "count_match": true,
+      "per_voice_agreement": {
+        "A": 1.0,
+        "B": 1.0,
+        "C": 1.0
+      },
+      "reference_sentence_counts": {
+        "A": 6,
+        "B": 8,
+        "C": 4
+      },
+      "macro_agreement": 1.0,
+      "min_agreement": 1.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [],
+      "duration_ms": 57189,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually."
+      ]
+    },
+    {
+      "case": "heldout_single_changed_text_rate",
+      "required": true,
+      "status": "passed",
+      "expected_count": 1,
+      "observed_count": 1,
+      "legacy_count": 2,
+      "window_count": 22,
+      "count_match": true,
+      "per_voice_agreement": {
+        "A": 1.0
+      },
+      "reference_sentence_counts": {
+        "A": 6
+      },
+      "macro_agreement": 1.0,
+      "min_agreement": 1.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [],
+      "duration_ms": 17337,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually."
+      ]
+    },
+    {
+      "case": "heldout_two_changed_text_rate",
+      "required": true,
+      "status": "passed",
+      "expected_count": 2,
+      "observed_count": 2,
+      "legacy_count": 6,
+      "window_count": 40,
+      "count_match": true,
+      "per_voice_agreement": {
+        "A": 1.0,
+        "B": 1.0
+      },
+      "reference_sentence_counts": {
+        "A": 5,
+        "B": 6
+      },
+      "macro_agreement": 1.0,
+      "min_agreement": 1.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [],
+      "duration_ms": 31551,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually."
+      ]
+    },
+    {
+      "case": "heldout_three_new_voice",
+      "required": true,
+      "status": "passed",
+      "expected_count": 3,
+      "observed_count": 3,
+      "legacy_count": 11,
+      "window_count": 63,
+      "count_match": true,
+      "per_voice_agreement": {
+        "A": 1.0,
+        "B": 1.0,
+        "C": 1.0
+      },
+      "reference_sentence_counts": {
+        "A": 5,
+        "B": 3,
+        "C": 3
+      },
+      "macro_agreement": 1.0,
+      "min_agreement": 1.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [],
+      "duration_ms": 49221,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually.",
+        "Some sentences span conflicting short-window speaker labels; marked speaker_uncertain for manual review."
+      ]
+    },
+    {
+      "case": "heldout_short_third_3s",
+      "required": true,
+      "status": "passed",
+      "expected_count": 3,
+      "observed_count": 3,
+      "legacy_count": 7,
+      "window_count": 45,
+      "count_match": true,
+      "per_voice_agreement": {
+        "A": 1.0,
+        "B": 1.0,
+        "C": 1.0
+      },
+      "reference_sentence_counts": {
+        "A": 5,
+        "B": 5,
+        "C": 1
+      },
+      "macro_agreement": 1.0,
+      "min_agreement": 1.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [],
+      "duration_ms": 35451,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Fine-scale check retained 1 coherent minority acoustic groups; verify the automatic count.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually."
+      ]
+    },
+    {
+      "case": "diagnostic_tiny_third_1_5s",
+      "required": false,
+      "status": "failed",
+      "expected_count": 3,
+      "observed_count": 2,
+      "legacy_count": 6,
+      "window_count": 43,
+      "count_match": false,
+      "per_voice_agreement": {
+        "A": 1.0,
+        "B": 1.0,
+        "C": 0.0
+      },
+      "reference_sentence_counts": {
+        "A": 5,
+        "B": 5,
+        "C": 1
+      },
+      "macro_agreement": 0.6666666666666666,
+      "min_agreement": 0.0,
+      "required_min_agreement": 0.8,
+      "failure_reasons": [
+        "count_mismatch",
+        "per_voice_agreement_below_threshold"
+      ],
+      "duration_ms": 33951,
+      "speaker_count_method": "cosine_knn_multiscale_eigengap_v1",
+      "model": "paraformer-zh",
+      "model_revision": "d7811ee3ac581fbcfdeb37c98c6ba674028433dc",
+      "warnings": [
+        "ASR output requires human review; confidence and identity are not verified.",
+        "Fixed chunk boundaries can split words; sentence times may be coarse VAD intervals.",
+        "Only the first audio stream is transcribed; original stream metadata is retained.",
+        "CAM++ labels are acoustic clusters, not real identities; overlap is not separated.",
+        "Automatic count uses multiscale cosine-neighbour graphs and relative eigengaps; review labels manually."
+      ]
+    }
+  ]
+}
