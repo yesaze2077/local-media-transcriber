@@ -111,9 +111,10 @@ def _automatic_labels(matrix, segments=None):
     A sqrt(N) neighbourhood can over-smooth a few seconds of a third voice.
     A three-neighbour view proposes extra groups, but it cannot directly decide
     the count: phonetic modes and transition windows also fragment that view.
-    Promotion requires >=3 windows, >=3 seconds of coherent temporal support,
+    Fine-group promotion requires >=3 windows, >=3 seconds of coherent support,
     a compact centroid, and novelty relative to every existing voice centroid.
-    These are reviewable heuristics, not a guarantee for very short utterances.
+    A subsequent tiny-pair check additionally requires local audio/alignment
+    evidence. These are reviewable heuristics, not a short-turn guarantee.
     """
     import numpy as np
 
@@ -126,10 +127,9 @@ def _automatic_labels(matrix, segments=None):
         return labels, warnings + [
             "Fine-scale count check unavailable; review short contributions."
         ]
-    if len(np.unique(fine)) <= len(np.unique(labels)):
-        return labels, warnings
     promoted = 0
-    for group in sorted(np.unique(fine), key=lambda value: -np.count_nonzero(fine == value)):
+    groups = np.unique(fine) if len(np.unique(fine)) > len(np.unique(labels)) else []
+    for group in sorted(groups, key=lambda value: -np.count_nonzero(fine == value)):
         ids = np.flatnonzero(fine == group)
         if len(ids) < 3:
             continue
@@ -164,6 +164,11 @@ def _automatic_labels(matrix, segments=None):
         warnings.append(
             f"Fine-scale check retained {promoted} coherent minority acoustic groups; verify the automatic count."
         )
+    # Run this only after the existing longer minority groups are established.
+    from .short_voice import promote_short_pairs
+
+    labels, details = promote_short_pairs(matrix, labels, segments, AUTO_MAX_SPEAKERS)
+    warnings.extend(details)
     return labels, warnings
 
 

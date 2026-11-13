@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "local-media-transcriber"
-version = "0.1.1"
+version = "0.1.2"
 description = "Local-first modular audio/video transcription with FunASR"
 readme = "README_EN.md"
 requires-python = ">=3.11,<3.13"

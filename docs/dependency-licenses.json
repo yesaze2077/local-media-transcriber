@@ -610,14 +610,14 @@
     },
     {
       "name": "local-media-transcriber",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "license_expression": "MIT",
       "license_metadata_first_line": null,
       "license_classifiers": [],
       "publisher_project_urls": [],
       "license_file_checksums": [
         {
-          "distribution_relative_path": "local_media_transcriber-0.1.1.dist-info/licenses/LICENSE",
+          "distribution_relative_path": "local_media_transcriber-0.1.2.dist-info/licenses/LICENSE",
           "sha256": "3521d0a218afee0fd4499e2e89b2077a79917d54305adb40f8783a79a7610e8e"
         }
       ],

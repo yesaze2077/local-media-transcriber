@@ -6,6 +6,7 @@ import copy
 import hashlib
 import json
 import math
+from numbers import Real
 import re
 import time
 import tempfile
@@ -112,6 +113,16 @@ class Engine:
                     if self.punc and text:
                         punctuation = self.punc.generate(input=text, cache={})
                     speaker_windows = []
+                    raw_alignment = result.get("timestamp")
+                    aligned_intervals = None
+                    if isinstance(raw_alignment, list):
+                        aligned_intervals = [
+                            [offset + begin + t[0], offset + begin + t[1]]
+                            for t in raw_alignment
+                            if isinstance(t, (list, tuple))
+                            and len(t) >= 2
+                            and all(isinstance(v, Real) and math.isfinite(v) for v in t[:2])
+                        ]
                     if self.spk:
                         # VAD intervals can contain speaker changes. Extract short acoustic
                         # windows and cluster globally; never equate a channel with a person.
@@ -121,6 +132,9 @@ class Engine:
                                 continue
                             spk = self.spk.generate(input=window, fs=sr, cache={})
                             if spk and "spk_embedding" in spk[0]:
+                                from ..audio.quality import window_evidence
+
+                                window_start = offset + begin + round(position / sr * 1000)
                                 speaker_windows.append(
                                     {
                                         "start_ms": offset + begin + round(position / sr * 1000),
@@ -129,6 +143,9 @@ class Engine:
                                         + round((position + len(window)) / sr * 1000),
                                         "speaker_id": None,
                                         "channel": channel,
+                                        **window_evidence(
+                                            window, sr, window_start, aligned_intervals
+                                        ),
                                         "embedding": spk[0]["spk_embedding"]
                                         .detach()
                                         .cpu()
@@ -427,7 +444,7 @@ def transcribe(source: Path, config: dict, job_dir: Path) -> dict:
             "speaker_count_method": (
                 "explicit_constraint"
                 if config.get("speakers") is not None
-                else "cosine_knn_multiscale_eigengap_v1"
+                else "cosine_knn_multiscale_short_evidence_v2"
             )
             if config.get("diarization")
             else None,

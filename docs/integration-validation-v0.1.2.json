@@ -1,0 +1,101 @@
+{
+  "version": "0.1.2",
+  "date": "2026-11-13",
+  "scope": "real local synthetic-media pipeline execution; no real-human accuracy claim",
+  "cases": [
+    {
+      "case": "chinese_wav",
+      "status": "passed"
+    },
+    {
+      "case": "chinese_mp3",
+      "status": "passed"
+    },
+    {
+      "case": "chinese_m4a",
+      "status": "passed"
+    },
+    {
+      "case": "video_subtitles",
+      "status": "passed"
+    },
+    {
+      "case": "english",
+      "status": "passed"
+    },
+    {
+      "case": "mixed_languages",
+      "status": "passed"
+    },
+    {
+      "case": "two_speakers",
+      "status": "passed",
+      "synthetic_voice_label_agreement": 1.0
+    },
+    {
+      "case": "auto_speakers",
+      "status": "passed",
+      "expected_count": 2,
+      "observed_count": 2,
+      "count_match": true
+    },
+    {
+      "case": "auto_single",
+      "status": "passed",
+      "expected_count": 1,
+      "observed_count": 1,
+      "count_match": true
+    },
+    {
+      "case": "auto_three",
+      "status": "passed",
+      "expected_count": 3,
+      "observed_count": 3,
+      "count_match": true
+    },
+    {
+      "case": "silence",
+      "status": "passed"
+    },
+    {
+      "case": "noise",
+      "status": "passed"
+    },
+    {
+      "case": "separate_channels",
+      "status": "passed"
+    },
+    {
+      "case": "long_chunked",
+      "status": "passed"
+    },
+    {
+      "case": "auto_language",
+      "status": "passed"
+    },
+    {
+      "case": "single_speaker",
+      "status": "passed"
+    },
+    {
+      "case": "three_speakers",
+      "status": "passed"
+    },
+    {
+      "case": "speaker_mapping",
+      "status": "passed"
+    },
+    {
+      "case": "duplicate_integrity",
+      "status": "passed"
+    },
+    {
+      "case": "resume_after_interruption",
+      "status": "passed"
+    },
+    {
+      "case": "batch_manifest",
+      "status": "passed"
+    }
+  ]
+}

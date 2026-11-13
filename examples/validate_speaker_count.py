@@ -26,6 +26,7 @@ def evaluate_speaker_count(
     matching transcript sentence score zero, so a long voice cannot hide a
     completely missed short third voice. This is not a DER implementation.
     """
+    references = [item for item in references if item.get("voice") is not None]
     voices = list(dict.fromkeys(item["voice"] for item in references))
     if not voices or len(voices) > 3:
         raise ValueError("Evaluation requires one to three reference voices")
@@ -99,6 +100,45 @@ def _ff(*arguments) -> None:
 def _duration(path: Path) -> int:
     with wave.open(str(path)) as file:
         return round(file.getnframes() / file.getframerate() * 1000)
+
+
+def case_plan() -> list[dict]:
+    """Required synthetic scenarios; no model/audio access is needed to inspect the plan."""
+    entries = [
+        ("original_single", ["oa"], 1),
+        ("original_two", ["oa", "ob", "oa", "ob"], 2),
+        ("original_three", ["oa", "ob", "oc", "oa", "ob", "oc"], 3),
+        ("heldout_single_changed_text_rate", ["solo_slow", "solo_fast"], 1),
+        ("heldout_two_changed_text_rate", ["a1", "b1", "a2", "b2"], 2),
+        ("heldout_three_new_voice", ["a1", "b1", "c1", "a2", "b2", "c2"], 3),
+        ("heldout_short_third_3s", ["a1", "b1", "c_short", "a2", "b2"], 3),
+        ("diagnostic_tiny_third_1_5s", ["a1", "b1", "c_tiny", "a2", "b2"], 3),
+        ("tiny_existing_voice_1_5s", ["a1", "b1", "a_tiny", "a2", "b2"], 2),
+        ("tiny_silence_1_5s", ["a1", "b1", "silence_tiny", "a2", "b2"], 2),
+        ("tiny_noise_1_5s", ["a1", "b1", "noise_tiny", "a2", "b2"], 2),
+        ("tiny_third_alternate_text_1_5s", ["a1", "b1", "c_alt_tiny", "a2", "b2"], 3),
+        ("tiny_third_swapped_order_1_5s", ["b1", "a1", "c_tiny", "b2", "a2"], 3),
+    ]
+    return [
+        {"case": name, "keys": keys, "expected_count": count, "required": True}
+        for name, keys, count in entries
+    ]
+
+
+def reference_intervals(parts: list[tuple[int, str | None]], pause_ms: int = 900) -> list[dict]:
+    """Build known synthetic reference times; non-voice clips consume time, not identities."""
+    if pause_ms < 0:
+        raise ValueError("Pause duration cannot be negative")
+    references, cursor = [], 0
+    for index, (duration, voice) in enumerate(parts):
+        if duration < 0:
+            raise ValueError("Clip duration cannot be negative")
+        if index:
+            cursor += pause_ms
+        if voice is not None:
+            references.append({"voice": voice, "start_ms": cursor, "end_ms": cursor + duration})
+        cursor += duration
+    return references
 
 
 def generate_cases(root: Path, original_fixtures: Path | None = None) -> list[dict]:
@@ -211,44 +251,71 @@ def generate_cases(root: Path, original_fixtures: Path | None = None) -> list[di
             165,
             "C",
         ),
+        (
+            "a_tiny_source",
+            "Tingting",
+            "我再确认一下时间，请大家出发以前检查好随身物品。",
+            160,
+            "A",
+        ),
+        (
+            "c_alt_source",
+            "Meijia",
+            "请记得带上证件，我们到达以后还需要登记姓名。",
+            155,
+            "C",
+        ),
     ]
     for key, voice, text, rate, role in new:
         say(key, voice, text, rate, role)
-    for key, seconds in [("c_short", 3.0), ("c_tiny", 1.5)]:
+    for key, source_key, seconds in [
+        ("c_short", "c_short_source", 3.0),
+        ("c_tiny", "c_short_source", 1.5),
+        ("a_tiny", "a_tiny_source", 1.5),
+        ("c_alt_tiny", "c_alt_source", 1.5),
+    ]:
         wav = root / f"{key}.wav"
-        _ff("-i", clips["c_short_source"][0], "-t", str(seconds), "-c:a", "pcm_s16le", wav)
-        clips[key] = (wav, "C")
+        _ff("-i", clips[source_key][0], "-t", str(seconds), "-c:a", "pcm_s16le", wav)
+        clips[key] = (wav, clips[source_key][1])
+    for key, generator in [
+        ("silence_tiny", "anullsrc=r=16000:cl=mono"),
+        ("noise_tiny", "anoisesrc=color=white:amplitude=0.1:sample_rate=16000:seed=761"),
+    ]:
+        wav = root / f"{key}.wav"
+        _ff("-f", "lavfi", "-i", generator, "-t", "1.5", "-ac", "1", "-c:a", "pcm_s16le", wav)
+        clips[key] = (wav, None)
     pause = root / "pause.wav"
     _ff("-f", "lavfi", "-i", "anullsrc=r=16000:cl=mono", "-t", "0.9", "-c:a", "pcm_s16le", pause)
     cases = []
 
-    def build(name, keys, required=True):
-        paths, references, cursor = [], [], 0
+    def build(plan):
+        name, keys = plan["case"], plan["keys"]
+        paths = []
+        references = reference_intervals(
+            [(_duration(clips[key][0]), clips[key][1]) for key in keys],
+            pause_ms=_duration(pause),
+        )
+        assert len({item["voice"] for item in references}) == plan["expected_count"]
         for key in keys:
             if paths:
                 paths.append(pause)
-                cursor += _duration(pause)
-            path, voice = clips[key]
-            duration = _duration(path)
-            references.append({"voice": voice, "start_ms": cursor, "end_ms": cursor + duration})
-            paths.append(path)
-            cursor += duration
+            paths.append(clips[key][0])
         listing = root / f"{name}.ffconcat"
         listing.write_text("".join(concat_entry(path) for path in paths), encoding="utf-8")
         destination = root / f"{name}.wav"
         _ff("-f", "concat", "-safe", "0", "-i", listing, "-c:a", "pcm_s16le", destination)
         cases.append(
-            {"case": name, "source": destination, "references": references, "required": required}
+            {
+                "case": name,
+                "source": destination,
+                "references": references,
+                "required": plan["required"],
+                "expected_count": plan["expected_count"],
+            }
         )
 
-    build("original_single", ["oa"])
-    build("original_two", ["oa", "ob", "oa", "ob"])
-    build("original_three", ["oa", "ob", "oc", "oa", "ob", "oc"])
-    build("heldout_single_changed_text_rate", ["solo_slow", "solo_fast"])
-    build("heldout_two_changed_text_rate", ["a1", "b1", "a2", "b2"])
-    build("heldout_three_new_voice", ["a1", "b1", "c1", "a2", "b2", "c2"])
-    build("heldout_short_third_3s", ["a1", "b1", "c_short", "a2", "b2"])
-    build("diagnostic_tiny_third_1_5s", ["a1", "b1", "c_tiny", "a2", "b2"], required=False)
+    for plan in case_plan():
+        build(plan)
     return cases
 
 
@@ -311,7 +378,7 @@ def main(argv=None) -> int:
         "cases": [],
     }
     for case in cases:
-        expected = len({reference["voice"] for reference in case["references"]})
+        expected = case["expected_count"]
         row = {
             "case": case["case"],
             "required": case["required"],

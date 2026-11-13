@@ -2,7 +2,7 @@
 
 Local-first audio/video transcription with modular FunASR models, timestamped text, optional anonymous speaker clustering, subtitles and resumable batch jobs. CPU is the default. Media and transcripts are not uploaded; no paid cloud API is required.
 
-[中文](README.md) · [Verification report](docs/tests-report-v0.1.1.md) · [Third-party licenses](THIRD_PARTY_NOTICES.md) · [Privacy](docs/privacy.md)
+[中文](README.md) · [Verification report](docs/tests-report-v0.1.2.md) · [Third-party licenses](THIRD_PARTY_NOTICES.md) · [Privacy](docs/privacy.md)
 
 Project code and the Codex Skill are MIT. Model weights have separate licenses, including the custom agreement for SenseVoiceSmall; the MIT license does not cover every checkpoint.
 
@@ -155,7 +155,7 @@ flowchart LR
     Schema --> Export[Text / subtitles / structured exports]
 ```
 
-[Architecture](docs/architecture.md) · [Verification report](docs/tests-report-v0.1.1.md) · [Licenses](THIRD_PARTY_NOTICES.md)
+[Architecture](docs/architecture.md) · [Verification report](docs/tests-report-v0.1.2.md) · [Licenses](THIRD_PARTY_NOTICES.md)
 
 ```bash
 make test
@@ -180,4 +180,4 @@ The report separates real inference, software tests, implementation-only paths, 
 
 Future extensions may add new checkpoint adapters, dedicated overlap processing, review UI, independent local translation/understanding and broader platform tests. These are not claimed as current validated capabilities.
 
-v0.1.1 validation: the original two-voice sample now yields 2 clusters instead of 4, and the three-voice sample yields 3 instead of 9. Seven required synthetic-voice scenarios, including changed text/rates and a 3-second third voice, pass count and balanced label checks. A 1.5-second third voice can still be missed. See the [test report](docs/tests-report-v0.1.1.md).
+v0.1.2 validation: the original two/three-voice samples retain 2/3 clusters. The previously missed 1.5-second third voice now yields 3 instead of 2. All 13 required synthetic scenarios pass count and per-voice label checks, including changed short-turn text/order and existing-voice, silence and noise controls. Tiny-voice checks require audio activity and aligned ASR token support; missing timing or a single reliable window can still cause omissions. Counts remain unverified estimates. See the [test report](docs/tests-report-v0.1.2.md).
